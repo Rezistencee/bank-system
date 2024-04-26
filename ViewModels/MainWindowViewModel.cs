@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
+using BankSystem.Models;
+using BankSystem.Services.DAL;
+using BankSystem.Views;
 using ReactiveUI;
 
 namespace BankSystem.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private ClientsContext _clientsContext;
     private string _username;
     private string _password;
 
@@ -40,10 +45,18 @@ public class MainWindowViewModel : ViewModelBase
     {
         _username = String.Empty;
         _password = String.Empty;
+        _clientsContext = new ClientsContext();
 
         LoginCommand = ReactiveCommand.Create(() =>
         {
-            Console.WriteLine($"Authorized: {Username} {Password}");
+            Client currentClient = _clientsContext.IsClientExist(Username, Password);
+            
+            if(currentClient != null)
+                Console.WriteLine("Authorized!");
+            else
+                Console.WriteLine("Incorrect data!");
+            
+            // TODO: Create new window and open it
         });
     }
 }
