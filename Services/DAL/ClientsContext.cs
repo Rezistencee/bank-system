@@ -21,6 +21,7 @@ namespace BankSystem.Services.DAL
         public ClientsContext() : base()
         {
             _clients = null;
+            GetClients();
         }
         
         public void GetClients()
@@ -29,21 +30,40 @@ namespace BankSystem.Services.DAL
 
             clients.Add(new Client
             {
-                Name = "Alex Boost",
+                Firstname = "Alex",
+                Lastname = "Boost",
                 Login = "qwerty123",
                 Password = "test",
                 ERDPOU = "123543263"
             });
+            
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                
+                string query = "SELECT * FROM Clients";
+                
+                SqlCommand getClientsCommand = new SqlCommand(query, connection);
+
+                using (SqlDataReader reader = getClientsCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        clients.Add(new Client
+                        {
+                            Firstname = reader["Firstname"].ToString(),
+                            Lastname = reader["Lastname"].ToString(),
+                            Login = reader["Login"].ToString().Trim(),
+                            Password = reader["Password"].ToString().Trim(),
+                            ERDPOU = reader["ERDPOU"].ToString()
+                        });
+                    }
+                }
+            }
 
             _clients = clients;
         }
 
-        public Client IsClientExist(string login, string password)
-        {
-            if(_clients == null)
-                GetClients();
-            
-            return _clients.FirstOrDefault(c => (c.Login == login && c.Password == password));
-        }
+        public Client IsClientExist(string login, string password) => _clients.FirstOrDefault(c => (c.Login == login && c.Password == password));
     }
 }

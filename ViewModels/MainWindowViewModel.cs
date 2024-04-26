@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using BankSystem.Models;
 using BankSystem.Services.DAL;
+using BankSystem.Views;
 using ReactiveUI;
 
 namespace BankSystem.ViewModels;
@@ -55,7 +56,7 @@ public class MainWindowViewModel : ViewModelBase
             else
                 Console.WriteLine("Incorrect data!");
             
-            // Create new window and open it
+            // TODO: Create new window and open it
         });
     }
 }
