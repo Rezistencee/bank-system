@@ -63,6 +63,10 @@
                 <Setter Property="Foreground" Value="White"/>
             </Style>
             
+            <Style Selector="^:pointerover /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="#1D1E3D"/>
+            </Style>
+            
             <Style Selector="^:focus /template/ Border#PART_BorderElement">
                 <Setter Property="Background" Value="#1D1E3D"/>
             </Style>
@@ -95,9 +99,9 @@
             <WrapPanel Grid.Row="3" Width="280" VerticalAlignment="Center" 
                        HorizontalAlignment="Center" Margin="00, 20">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Width="120" Content="Close" Margin="10, 0" Classes="redBtn"
+                    <Button Width="120" Content="Close" Margin="0, 0, 10, 0" Classes="redBtn"
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_OnClick"/>
-                    <Button Width="120" Content="Login" Margin="10, 0" Classes="greenBtn"
+                    <Button Width="120" Content="Login" Margin="10, 0, 0 0" Classes="greenBtn"
                             Command="{Binding LoginCommand}"
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </StackPanel>
