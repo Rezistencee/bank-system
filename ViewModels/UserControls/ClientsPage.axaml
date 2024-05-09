@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:BankSystem.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="350"
+             x:Class="BankSystem.ViewModels.UserControls.ClientsPage"
+             x:DataType="viewModels:AdminWindowViewModel">
+    
+        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Clients}"
+                  BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding Firstname}" Width="*"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding Lastname}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+</UserControl>
