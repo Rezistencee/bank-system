@@ -1,0 +1,50 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BankSystem.Controls">
+    <Design.PreviewWith>
+        <StackPanel Width="320">
+            <controls:CardControl Balance="2673.56" ExpirationDate="09/24"/>
+        </StackPanel>
+    </Design.PreviewWith>
+    
+        <Style Selector="controls|CardControl">
+            <!-- Set Defaults -->
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Height="150" CornerRadius="10" BorderThickness="0">
+                        <Grid ColumnDefinitions="2*, *" RowDefinitions="*, *, *">
+                            <Grid.Background>
+                                <ImageBrush Source="C:\Users\fcrea\Desktop\photos\anime_girl2.jpg" Stretch="UniformToFill"/>
+                            </Grid.Background>
+                        
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">
+                                <TextBlock Text="Card balance: " Foreground="Wheat" FontSize="14"/>
+                                <TextBlock FontSize="14" Foreground="White">
+                                    <Run Text="{TemplateBinding Balance}"/>
+                                    <Run Text="UAH"/>
+                                </TextBlock>
+                            </StackPanel>
+                    
+                            <StackPanel Grid.Column="1" Margin="0, 10, 0, 0">
+                                <Image Source="C:\Users\fcrea\Desktop\photos\mastercard_logo.png" Width="64" Height="64"/>
+                            </StackPanel>
+                        
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">
+                                <TextBlock Text="Card number: " Foreground="Wheat" FontSize="14"/>
+                                <TextBlock FontSize="14" Foreground="White">
+                                    <Run Text="{TemplateBinding Number}"/>
+                                </TextBlock>
+                            </StackPanel>
+                    
+                            <StackPanel Grid.Row="2" Grid.Column="1" Spacing="2">
+                                <TextBlock Text="Expiry Date: " Foreground="Wheat" FontSize="14"/>
+                                <TextBlock FontSize="14" Foreground="White">
+                                    <Run Text="{TemplateBinding ExpirationDate}"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+</Styles>

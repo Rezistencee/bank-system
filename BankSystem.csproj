@@ -23,4 +23,12 @@
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.2"/>
         <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Update="Controls\CardControl.axaml.cs">
+        <DependentUpon>CardControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

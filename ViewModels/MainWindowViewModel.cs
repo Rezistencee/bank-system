@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
 using System.Windows.Input;
 using BankSystem.Models;
 using BankSystem.Services.DAL;
-using BankSystem.Views;
 using ReactiveUI;
 
 namespace BankSystem.ViewModels;
