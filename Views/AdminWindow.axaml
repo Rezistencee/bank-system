@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:BankSystem.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="350"
+        x:Class="BankSystem.Views.AdminWindow"
+        x:DataType="viewModels:AdminWindowViewModel"
+        ExtendClientAreaToDecorationsHint="True"
+        WindowStartupLocation="CenterScreen"
+        Title="Main Window">
+    
+    <Design.DataContext>
+        <viewModels:AdminWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0, 1">
+            <GradientStop Color="#000000" Offset="0"/>
+            <GradientStop Color="#0D0F1E" Offset="0.5"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    
+    <Window.Styles>
+        <Style Selector="Button.sideMenuBtn">
+            <Setter Property="Background" Value="Salmon"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            
+            <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="IndianRed" /> 
+            </Style>
+        </Style>
+    </Window.Styles>
+    
+    <Grid ColumnDefinitions="*, 4*" ShowGridLines="True">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+            <Button Classes="sideMenuBtn" Content="Clients" Width="120"/>
+            <Button Classes="sideMenuBtn" Content="Transactions" Width="120"/>
+        </StackPanel>
+        
+        <ContentPresenter Grid.Column="1" Content="{Binding CurrentPage}"/>
+    </Grid>
+</Window>
