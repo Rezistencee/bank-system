@@ -12,6 +12,7 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"        
         WindowStartupLocation="CenterScreen"
+        PointerPressed="InputElement_OnPointerPressed"
         Title="Main Window">
     
     <Window.Background>

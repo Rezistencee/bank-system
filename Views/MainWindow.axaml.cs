@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using BankSystem.ViewModels;
 
@@ -11,5 +12,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainWindowViewModel();
+    }
+
+    private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        BeginMoveDrag(e);
     }
 }
