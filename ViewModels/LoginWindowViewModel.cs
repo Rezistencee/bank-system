@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Avalonia.Controls;
 using BankSystem.Models;
+using BankSystem.Services;
 using BankSystem.Services.DAL;
 using BankSystem.Views;
 using ReactiveUI;
@@ -52,6 +53,8 @@ public class LoginWindowViewModel : ViewModelBase
 
             if (currentClient != null)
             {
+                SingletonSession.Initialize(currentClient);
+                
                 Window mainWindow = new MainWindow();
                 
                 mainWindow.Show();
