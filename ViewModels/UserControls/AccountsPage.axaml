@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:BankSystem.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BankSystem.ViewModels.UserControls.AccountsPage"
+             x:DataType="viewModels:AdminWindowViewModel">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Accounts}"
+                  BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" FontSize="12" Width="*"/>
+                <DataGridTextColumn Header="Client" Binding="{Binding ClientID}" Width="*"/>
+                <DataGridTextColumn Header="IBAN" Binding="{Binding IBAN}" Width="*"/>
+                <DataGridTextColumn Header="Balance" Binding="{Binding Balance}" Width="*"/>
+                <DataGridTextColumn Header="Opened" Binding="{Binding OpenDate}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </ScrollViewer>
+</UserControl>

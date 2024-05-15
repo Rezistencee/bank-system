@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:BankSystem.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BankSystem.ViewModels.UserControls.TransactionsPage"
+             x:DataType="viewModels:AdminWindowViewModel">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Transactions}"
+                  BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" FontSize="12" Width="*"/>
+                <DataGridTextColumn Header="Source Account" Binding="{Binding  SourceAccountID}" Width="*"/>
+                <DataGridTextColumn Header="Destination Account" Binding="{Binding  DestinationAccountID}" Width="*"/>
+                <DataGridTextColumn Header="Sender Bank" Binding="{Binding SenderBankID}" Width="*"/>
+                <DataGridTextColumn Header="Receiver Bank" Binding="{Binding ReceiverBankID}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Desctiption}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </ScrollViewer>
+</UserControl>
