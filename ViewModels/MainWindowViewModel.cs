@@ -37,7 +37,7 @@ public class MainWindowViewModel : ViewModelBase
         
         OpenAdminWindowCommand = ReactiveCommand.Create(OpenAdminWindow);
 
-        _currentSession = SingletonSession.GetInstance().CurrentSession;
+        _currentSession = SingletonSession.Instance.CurrentSession;
         
         _clients.Add(new Client
         {

@@ -40,12 +40,20 @@ namespace BankSystem.Services.DAL
                 {
                     while (reader.Read())
                     {
+                        short clientTypeID = Convert.ToInt16(reader["client_type_id"]);
+                        
                         clients.Add(new Client
                         {
-                            Name = reader["Name"].ToString(),
+                            ID = Convert.ToInt32(reader["ID"]),
+                            Name = reader["Name"].ToString().Trim(),
                             Login = reader["Login"].ToString().Trim(),
                             Password = reader["Password"].ToString().Trim(),
-                            EDRPOU = reader["EDRPOU"].ToString()
+                            ClientTypeID = clientTypeID,
+                            ClientType = ClientTypes.FromNumericValue(clientTypeID),
+                            EDRPOU = reader["EDRPOU"].ToString(),
+                            TelephoneNumber = reader["telephone_number"].ToString(),
+                            Address = reader["address"].ToString().Trim(),
+                            RegistrationDate = reader.GetDateTime(reader.GetOrdinal("registrationDate"))
                         });
                     }
                 }
