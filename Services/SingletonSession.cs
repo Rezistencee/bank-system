@@ -52,5 +52,23 @@ namespace BankSystem.Services
 
             _instance = new SingletonSession(client);
         }
+
+        public void AddAccounts(List<Account> accounts)
+        {
+            for (int index = 0; index < accounts.Count; index++)
+            {
+                _session.Accounts.Add(accounts[index]);
+            } 
+        }
+        
+        public void AddAccount(Account account)
+        {
+            _session.Accounts.Add(account);
+        }
+        
+        public void AddCard(Card card)
+        {
+            _session.Cards.Add(card);
+        }
     }
 }

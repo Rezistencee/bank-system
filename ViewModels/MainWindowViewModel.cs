@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
@@ -14,10 +15,32 @@ public class MainWindowViewModel : ViewModelBase
 {
     private ObservableCollection<Client> _clients;
     private ISession _currentSession;
+
+    private int _currentAccountIndex;
+    private Account _currentAccount;
+    private Card _currentCard;
     
     public Client CurrentClient
     {
         get => _currentSession.Client;
+    }
+
+    public Account CurrentAccount
+    {
+        get => _currentAccount;
+        private set
+        {
+            this.RaiseAndSetIfChanged(ref _currentAccount, value);
+        }
+    }
+    
+    public Card CurrentCard
+    {
+        get => _currentCard;
+        private set
+        {
+            this.RaiseAndSetIfChanged(ref _currentCard, value);
+        }
     }
 
     public ObservableCollection<Client> Clients
@@ -30,6 +53,8 @@ public class MainWindowViewModel : ViewModelBase
     }
     
     public ICommand OpenAdminWindowCommand { get; }
+    public ICommand SwitchAccountToNext { get; }
+    public ICommand SwitchAccountToPrevious { get; }
     
     public MainWindowViewModel()
     {
@@ -37,7 +62,13 @@ public class MainWindowViewModel : ViewModelBase
         
         OpenAdminWindowCommand = ReactiveCommand.Create(OpenAdminWindow);
 
+        _currentAccountIndex = 0;
         _currentSession = SingletonSession.Instance.CurrentSession;
+
+        _currentAccount = _currentSession.Accounts[_currentAccountIndex];
+        _currentCard = _currentSession.Cards[_currentAccountIndex];
+        
+        Console.WriteLine(_currentAccount.Balance);
         
         _clients.Add(new Client
         {

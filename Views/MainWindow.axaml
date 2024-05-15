@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:BankSystem.ViewModels"
         xmlns:controls="clr-namespace:BankSystem.Controls"
+        xmlns:converters="clr-namespace:BankSystem.Controls.Converters"
         mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="420"
         x:Class="BankSystem.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -87,7 +88,9 @@
                     </Button>
                 
                     <controls:CardControl Grid.Column="1" Width="260" Height="140"
-                                          Balance="3997.49" Number="4149 5154 9467 8851"/>
+                                          Balance="{Binding CurrentAccount.Balance}"
+                                          Number="{Binding CurrentCard.Number}"
+                                          ExpirationDate="{Binding CurrentCard.ExpirationDate, StringFormat=MM-yy}"/>
                 
                     <Button Grid.Column="2" Margin="5" HorizontalAlignment="Center">
                         <Polygon Points="0,0 15,7.5 0,15" Fill="#A479B3" VerticalAlignment="Center"
