@@ -12,7 +12,7 @@
                   BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="ClientType" Binding="{Binding ClientType}" Width="*"/>
+                <DataGridTextColumn Header="ClientType" Binding="{Binding ClientType.Value}" Width="*"/>
                 <DataGridTextColumn Header="Address" Binding="{Binding  Address}" Width="*"/>
                 <DataGridTextColumn Header="EDRPOU" Binding="{Binding EDRPOU}" Width="*"/>
                 <DataGridTextColumn Header="Registration" Binding="{Binding RegistrationDate}" Width="*"/>

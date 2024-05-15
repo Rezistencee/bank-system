@@ -3,12 +3,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:BankSystem.ViewModels"
-        xmlns:userControls="clr-namespace:BankSystem.ViewModels.UserControls"
         mc:Ignorable="d" d:DesignWidth="660" d:DesignHeight="350"
         x:Class="BankSystem.Views.AdminWindow"
         x:DataType="viewModels:AdminWindowViewModel"
-        Width="800"
-        Height="420"
+        Width="960"
+        Height="480"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"        
@@ -46,6 +45,8 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
             <Button Classes="sideMenuBtn" Content="Clients" Width="120"
                     Command="{Binding SwitchPageCommand}" CommandParameter="Clients"/>
+            <Button Classes="sideMenuBtn" Content="Accounts" Width="120"
+                    Command="{Binding SwitchPageCommand}" CommandParameter="Accounts"/>
             <Button Classes="sideMenuBtn" Content="Transactions" Width="120"
                     Command="{Binding SwitchPageCommand}" CommandParameter="Transactions"/>
         </StackPanel>
