@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Reactive;
 using System.Windows.Input;
 using Avalonia.Controls;
 using BankSystem.Models;
+using BankSystem.Services.DAL;
 using BankSystem.ViewModels.UserControls;
 using Microsoft.Win32;
 using ReactiveUI;
@@ -14,7 +16,7 @@ namespace BankSystem.ViewModels;
 public class AdminWindowViewModel : ViewModelBase
 {
     private UserControl _currentPage;
-
+    private ClientsContext _clientsContext;
     private ObservableCollection<Client> _clients;
     
     public UserControl CurrentPage
@@ -41,7 +43,9 @@ public class AdminWindowViewModel : ViewModelBase
 
     public AdminWindowViewModel()
     {
-        Clients = new ObservableCollection<Client>();
+        _clientsContext = new ClientsContext();
+        
+        Clients = new ObservableCollection<Client>(_clientsContext.Clients);
 
         SwitchPageCommand = ReactiveCommand.Create<object>(SwitchPage);
         
