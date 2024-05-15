@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Avalonia.Controls;
 using BankSystem.Models;
@@ -11,7 +12,9 @@ namespace BankSystem.ViewModels;
 
 public class LoginWindowViewModel : ViewModelBase
 {
+    private AccountsContext _accountsContext;
     private ClientsContext _clientsContext;
+    private CardsContext _cardsContext;
     private string _username;
     private string _password;
 
@@ -46,6 +49,8 @@ public class LoginWindowViewModel : ViewModelBase
         _username = String.Empty;
         _password = String.Empty;
         _clientsContext = new ClientsContext();
+        _accountsContext = new AccountsContext();
+        _cardsContext = new CardsContext();
 
         LoginCommand = ReactiveCommand.Create(() =>
         {
@@ -54,6 +59,17 @@ public class LoginWindowViewModel : ViewModelBase
             if (currentClient != null)
             {
                 SingletonSession.Initialize(currentClient);
+
+                List<Account> accounts = _accountsContext.GetUserAccounts(currentClient.ID);
+                
+                SingletonSession.Instance.AddAccounts(accounts);
+                
+                for (int account = 0; account < accounts.Count; account++)
+                {
+                    Card card = _cardsContext.GetAccountCard(accounts[account].ID);
+                    
+                    SingletonSession.Instance.AddCard(card);
+                }
                 
                 Window mainWindow = new MainWindow();
                 

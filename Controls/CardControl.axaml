@@ -1,11 +1,16 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:BankSystem.Controls">
+        xmlns:controls="using:BankSystem.Controls"
+        xmlns:converters="clr-namespace:BankSystem.Controls.Converters">
     <Design.PreviewWith>
         <StackPanel Width="320">
             <controls:CardControl Balance="2673.56" ExpirationDate="09/24"/>
         </StackPanel>
     </Design.PreviewWith>
+    
+    <Styles.Resources>
+        <converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
+    </Styles.Resources>
     
         <Style Selector="controls|CardControl">
             <!-- Set Defaults -->
@@ -20,7 +25,7 @@
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">
                                 <TextBlock Text="Card balance: " Foreground="Wheat" FontSize="14"/>
                                 <TextBlock FontSize="14" Foreground="White">
-                                    <Run Text="{TemplateBinding Balance}"/>
+                                    <Run Text="{TemplateBinding Balance, Converter={StaticResource DecimalToStringConverter}}"/>
                                     <Run Text="UAH"/>
                                 </TextBlock>
                             </StackPanel>

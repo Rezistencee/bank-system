@@ -6,8 +6,8 @@ namespace BankSystem.Controls;
 
 public class CardControl : TemplatedControl
 {
-    public static readonly StyledProperty<string> BalanceProperty =
-        AvaloniaProperty.Register<CardControl, string>(nameof(Balance), defaultValue: "00.00");
+    public static readonly StyledProperty<decimal> BalanceProperty =
+        AvaloniaProperty.Register<CardControl, decimal>(nameof(Balance), defaultValue: 0.0M);
     
     public static readonly StyledProperty<string> NumberProperty =
         AvaloniaProperty.Register<CardControl, string>(nameof(Number), defaultValue: "XXXX XXXX XXXX XXXX");
@@ -15,7 +15,7 @@ public class CardControl : TemplatedControl
     public static readonly StyledProperty<string> ExpirationDateProperty =
         AvaloniaProperty.Register<CardControl, string>(nameof(ExpirationDate), defaultValue: "01/24");
     
-    public string Balance
+    public decimal Balance
     {
         get { return GetValue(BalanceProperty); }
         set { SetValue(BalanceProperty, value); }
