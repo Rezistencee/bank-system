@@ -27,15 +27,6 @@ namespace BankSystem.Services.DAL
         public void GetClients()
         {
             List<Client> clients = new List<Client>();
-
-            clients.Add(new Client
-            {
-                Firstname = "Alex",
-                Lastname = "Boost",
-                Login = "qwerty123",
-                Password = "test",
-                ERDPOU = "123543263"
-            });
             
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -51,11 +42,10 @@ namespace BankSystem.Services.DAL
                     {
                         clients.Add(new Client
                         {
-                            Firstname = reader["Firstname"].ToString(),
-                            Lastname = reader["Lastname"].ToString(),
+                            Name = reader["Name"].ToString(),
                             Login = reader["Login"].ToString().Trim(),
                             Password = reader["Password"].ToString().Trim(),
-                            ERDPOU = reader["ERDPOU"].ToString()
+                            EDRPOU = reader["EDRPOU"].ToString()
                         });
                     }
                 }

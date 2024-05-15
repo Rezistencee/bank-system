@@ -11,8 +11,8 @@
                   ItemsSource="{Binding Clients}"
                   BorderThickness="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding Firstname}" Width="*"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding Lastname}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="EDRPOU" Binding="{Binding EDRPOU}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 </UserControl>

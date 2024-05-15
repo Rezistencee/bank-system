@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using BankSystem.ViewModels;
 
@@ -17,5 +18,10 @@ public partial class MainWindow : Window
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         BeginMoveDrag(e);
+    }
+
+    private void MenuExit_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }
