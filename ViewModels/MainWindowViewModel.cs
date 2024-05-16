@@ -17,6 +17,9 @@ public class MainWindowViewModel : ViewModelBase
     private ISession _currentSession;
 
     private int _currentAccountIndex;
+    private bool _canSwitchToNext;
+    private bool _canSwitchToPrevious;
+    
     private Account _currentAccount;
     private Card _currentCard;
     
@@ -51,24 +54,40 @@ public class MainWindowViewModel : ViewModelBase
             _clients = value;
         }
     }
+
+    public bool CanSwitchNext
+    {
+        get => _canSwitchToNext;
+        private set => this.RaiseAndSetIfChanged(ref _canSwitchToNext, value);
+    }
+
+    public bool CanSwitchPrevious
+    {
+        get => _canSwitchToPrevious;
+        private set => this.RaiseAndSetIfChanged(ref _canSwitchToPrevious, value);
+    }
     
     public ICommand OpenAdminWindowCommand { get; }
-    public ICommand SwitchAccountToNext { get; }
-    public ICommand SwitchAccountToPrevious { get; }
+    public ICommand SwitchAccountToNextCommand { get; }
+    public ICommand SwitchAccountToPreviousCommand { get; }
     
     public MainWindowViewModel()
     {
         _clients = new ObservableCollection<Client>();
         
         OpenAdminWindowCommand = ReactiveCommand.Create(OpenAdminWindow);
-
-        _currentAccountIndex = 0;
-        _currentSession = SingletonSession.Instance.CurrentSession;
-
-        _currentAccount = _currentSession.Accounts[_currentAccountIndex];
-        _currentCard = _currentSession.Cards[_currentAccountIndex];
+        SwitchAccountToPreviousCommand = ReactiveCommand.Create(SwitchAccountToPrevious);
+        SwitchAccountToNextCommand = ReactiveCommand.Create(SwitchAccountToNext);
         
-        Console.WriteLine(_currentAccount.Balance);
+        _currentSession = SingletonSession.Instance.CurrentSession;
+        _currentAccountIndex = 0;
+        
+        CurrentAccount = _currentSession.Accounts[_currentAccountIndex];
+        CurrentCard = _currentSession.Cards[_currentAccountIndex];
+        
+        Console.WriteLine(CurrentCard.Number);
+        
+        UpdateSwitchAccountCommands();
         
         _clients.Add(new Client
         {
@@ -98,5 +117,35 @@ public class MainWindowViewModel : ViewModelBase
         Window adminWindow = new AdminWindow();
         
         adminWindow.Show();
+    }
+    
+    private void SwitchAccountToPrevious()
+    {
+        if (_currentAccountIndex > 0)
+        {
+            _currentAccountIndex--;
+            CurrentAccount = _currentSession.Accounts[_currentAccountIndex];
+            CurrentCard = _currentSession.Cards[_currentAccountIndex];
+            
+            UpdateSwitchAccountCommands();
+        }
+    }
+    
+    private void SwitchAccountToNext()
+    {
+        if (_currentAccountIndex < _currentSession.Accounts.Count - 1)
+        {
+            _currentAccountIndex++;
+            CurrentAccount = _currentSession.Accounts[_currentAccountIndex];
+            CurrentCard = _currentSession.Cards[_currentAccountIndex];
+            
+            UpdateSwitchAccountCommands();
+        }
+    }
+    
+    private void UpdateSwitchAccountCommands()
+    {
+        CanSwitchNext = _currentAccountIndex < _currentSession.Accounts.Count - 1;
+        CanSwitchPrevious = _currentAccountIndex > 0;
     }
 }
