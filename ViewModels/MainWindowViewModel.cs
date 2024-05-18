@@ -5,7 +5,9 @@ using System.Reactive;
 using System.Windows.Input;
 using Avalonia.Controls;
 using BankSystem.Models;
+using BankSystem.Models.Structures;
 using BankSystem.Services;
+using BankSystem.Services.DAL;
 using BankSystem.Views;
 using ReactiveUI;
 
@@ -13,7 +15,10 @@ namespace BankSystem.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private TransactionsContext _transactionsContext;
+    
     private ObservableCollection<Client> _clients;
+    private ObservableCollection<DetailTransaction> _transactions;
     private ISession _currentSession;
 
     private int _currentAccountIndex;
@@ -34,6 +39,7 @@ public class MainWindowViewModel : ViewModelBase
         private set
         {
             this.RaiseAndSetIfChanged(ref _currentAccount, value);
+            LoadTransactions();
         }
     }
     
@@ -55,6 +61,12 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    public ObservableCollection<DetailTransaction> Transactions
+    {
+        get => _transactions;
+        private set => this.RaiseAndSetIfChanged(ref _transactions, value);
+    }
+
     public bool CanSwitchNext
     {
         get => _canSwitchToNext;
@@ -73,7 +85,10 @@ public class MainWindowViewModel : ViewModelBase
     
     public MainWindowViewModel()
     {
+        _transactionsContext = new TransactionsContext();
+        
         _clients = new ObservableCollection<Client>();
+        _transactions = new ObservableCollection<DetailTransaction>();
         
         OpenAdminWindowCommand = ReactiveCommand.Create(OpenAdminWindow);
         SwitchAccountToPreviousCommand = ReactiveCommand.Create(SwitchAccountToPrevious);
@@ -85,31 +100,12 @@ public class MainWindowViewModel : ViewModelBase
         CurrentAccount = _currentSession.Accounts[_currentAccountIndex];
         CurrentCard = _currentSession.Cards[_currentAccountIndex];
         
-        Console.WriteLine(CurrentCard.Number);
+        Console.WriteLine(_currentSession.Accounts.Count);
+        Console.WriteLine(_currentSession.Cards.Count);
         
         UpdateSwitchAccountCommands();
         
-        _clients.Add(new Client
-        {
-            Name = "Oleksii Khodakovskiy",
-            EDRPOU = "362362"
-        });
-        
-        _clients.Add(new Client
-        {
-            Name = "Andriy Danylov",
-            EDRPOU = "362362"
-        });
-        _clients.Add(new Client
-        {
-            Name = "Ivan",
-            EDRPOU = "362362"
-        });
-        _clients.Add(new Client
-        {
-            Name = "Zolik",
-            EDRPOU = "362362"
-        });
+        Console.WriteLine(Transactions.Count);
     }
 
     private void OpenAdminWindow()
@@ -147,5 +143,14 @@ public class MainWindowViewModel : ViewModelBase
     {
         CanSwitchNext = _currentAccountIndex < _currentSession.Accounts.Count - 1;
         CanSwitchPrevious = _currentAccountIndex > 0;
+    }
+    
+    private void LoadTransactions()
+    {
+        if (CurrentAccount != null)
+        {
+            Transactions = new ObservableCollection<DetailTransaction>(
+                _transactionsContext.GetLastTenTransactionAccountList(CurrentAccount.ID));
+        }
     }
 }

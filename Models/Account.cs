@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using BankSystem.Models.Structures;
 
 namespace BankSystem.Models
 {
