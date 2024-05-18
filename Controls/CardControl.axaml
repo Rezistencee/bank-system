@@ -19,7 +19,7 @@
                     <Border Height="150" CornerRadius="10" BorderThickness="0">
                         <Grid ColumnDefinitions="2*, *" RowDefinitions="*, *, *">
                             <Grid.Background>
-                                <ImageBrush Source="C:\Users\fcrea\Desktop\photos\anime_girl2.jpg" Stretch="UniformToFill"/>
+                                <ImageBrush Source="D:\1\Desktop\photos\anime_girl.jpeg" Stretch="UniformToFill"/>
                             </Grid.Background>
                         
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">
@@ -31,7 +31,7 @@
                             </StackPanel>
                     
                             <StackPanel Grid.Column="1" Margin="0, 10, 0, 0">
-                                <Image Source="C:\Users\fcrea\Desktop\photos\mastercard_logo.png" Width="64" Height="64"/>
+                                <Image Source="" Width="64" Height="64"/>
                             </StackPanel>
                         
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">

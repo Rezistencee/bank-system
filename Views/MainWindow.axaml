@@ -108,7 +108,7 @@
                                FontSize="18" FontStyle="Italic" FontWeight="Bold" Foreground="Wheat"/>
                        
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxHeight="240">
-                        <ListBox ItemsSource="{Binding Clients}" Background="Transparent">
+                        <ListBox ItemsSource="{Binding Transactions}" Background="Transparent">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border Grid.Column="0" BorderBrush="#A479B3" BorderThickness="1" CornerRadius="4" Padding="2">
@@ -125,10 +125,10 @@
                                                 <TextBlock Grid.Row="1" Text="12:07" Foreground="Linen"/>
                                                 
                                                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Padding="2"
-                                                           Text="{Binding Name}" Foreground="White" FontWeight="Bold"/>
+                                                           Text="{Binding Sender}" Foreground="White" FontWeight="Bold"/>
                                                 
                                                 <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="2"
-                                                           Text="Something description..." Foreground="White"/>
+                                                           Text="{Binding Description}" Foreground="White"/>
                                             </Grid>
 
                                             <Button Grid.Column="1" Background="#A499B3" Content="Receipt" 
