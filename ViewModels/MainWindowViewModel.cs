@@ -25,6 +25,8 @@ public class MainWindowViewModel : ViewModelBase
     private bool _canSwitchToNext;
     private bool _canSwitchToPrevious;
     
+    private DetailTransaction _currentSelectableTransaction;
+    
     private Account _currentAccount;
     private Card _currentCard;
     
@@ -66,6 +68,12 @@ public class MainWindowViewModel : ViewModelBase
         get => _transactions;
         private set => this.RaiseAndSetIfChanged(ref _transactions, value);
     }
+    
+    public DetailTransaction CurrentSelectableTransaction
+    {
+        get => _currentSelectableTransaction;
+        set => this.RaiseAndSetIfChanged(ref _currentSelectableTransaction, value);
+    }
 
     public bool CanSwitchNext
     {
@@ -82,6 +90,7 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand OpenAdminWindowCommand { get; }
     public ICommand SwitchAccountToNextCommand { get; }
     public ICommand SwitchAccountToPreviousCommand { get; }
+    public ICommand SaveTransactionInformation { get; }
     
     public MainWindowViewModel()
     {
@@ -93,6 +102,7 @@ public class MainWindowViewModel : ViewModelBase
         OpenAdminWindowCommand = ReactiveCommand.Create(OpenAdminWindow);
         SwitchAccountToPreviousCommand = ReactiveCommand.Create(SwitchAccountToPrevious);
         SwitchAccountToNextCommand = ReactiveCommand.Create(SwitchAccountToNext);
+        SaveTransactionInformation = ReactiveCommand.Create(SaveTransactionToFile);
         
         _currentSession = SingletonSession.Instance.CurrentSession;
         _currentAccountIndex = 0;
@@ -104,8 +114,6 @@ public class MainWindowViewModel : ViewModelBase
         Console.WriteLine(_currentSession.Cards.Count);
         
         UpdateSwitchAccountCommands();
-        
-        Console.WriteLine(Transactions.Count);
     }
 
     private void OpenAdminWindow()
@@ -143,6 +151,11 @@ public class MainWindowViewModel : ViewModelBase
     {
         CanSwitchNext = _currentAccountIndex < _currentSession.Accounts.Count - 1;
         CanSwitchPrevious = _currentAccountIndex > 0;
+    }
+
+    private void SaveTransactionToFile()
+    {
+        PDFGenerator.GenerateTransactionFile(CurrentSelectableTransaction);
     }
     
     private void LoadTransactions()
