@@ -62,8 +62,6 @@ public class TransactionsContext : DatabaseConnection
     public List<DetailTransaction> GetLastTenTransactionAccountList(int accountID)
     {
         List<DetailTransaction> incomeTransactions = new List<DetailTransaction>();
-            
-        Console.WriteLine($"Fetching last ten transactions for account ID: {accountID}");
         
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
@@ -72,19 +70,25 @@ public class TransactionsContext : DatabaseConnection
             string query = 
                 """
                 SELECT TOP 10 
-                   senderClient.name AS Sender, 
-                   receiverClient.name AS Receiver, 
-                                       t.amount ,
-                                       t.Description AS Description
-                                   FROM Transactions t
-                                   JOIN Accounts senderAccount ON t.source_account = senderAccount.ID
-                                   JOIN Clients senderClient ON senderAccount.client_id = senderClient.ID
-                                   JOIN Accounts receiverAccount ON t.destination_account = receiverAccount.ID
-                                   JOIN Clients receiverClient ON receiverAccount.client_id = receiverClient.ID
-                                   WHERE t.source_account = @AccountId OR t.destination_account = @AccountId
-                                   ORDER BY t.ID DESC
+                    senderClient.name AS Sender, 
+                    receiverClient.name AS Receiver, 
+                    t.amount,
+                    t.Description AS Description,
+                    senderAccount.IBAN AS SenderIBAN,
+                    receiverAccount.IBAN AS ReceiverIBAN,
+                    senderBank.name AS SenderBank,
+                    receiverBank.name AS ReceiverBank
+                FROM Transactions t
+                JOIN Accounts senderAccount ON t.source_account = senderAccount.ID
+                JOIN Clients senderClient ON senderAccount.client_id = senderClient.ID
+                JOIN Accounts receiverAccount ON t.destination_account = receiverAccount.ID
+                JOIN Clients receiverClient ON receiverAccount.client_id = receiverClient.ID
+                JOIN Banks senderBank ON t.sender_bank_id = senderBank.ID
+                JOIN Banks receiverBank ON t.receiver_bank_id = receiverBank.ID
+                WHERE t.source_account = @AccountId OR t.destination_account = @AccountId
+                ORDER BY t.ID DESC
                 """;
-                
+            
             SqlCommand getIncomeTransactions = new SqlCommand(query, connection);
 
             getIncomeTransactions.Parameters.AddWithValue("@AccountId", accountID);
@@ -96,7 +100,11 @@ public class TransactionsContext : DatabaseConnection
                     incomeTransactions.Add(new DetailTransaction
                     {
                         Receiver = reader["Receiver"].ToString(),
+                        ReceiverIBAN = reader["ReceiverIBAN"].ToString(),
+                        ReceiverBank = reader["ReceiverBank"].ToString(),
                         Sender = reader["Sender"].ToString(),
+                        SenderIBAN = reader["SenderIBAN"].ToString(),
+                        SenderBank = reader["SenderBank"].ToString(),
                         Amount = (decimal)reader["Amount"],
                         Description = reader["Description"].ToString().Trim()
                     });

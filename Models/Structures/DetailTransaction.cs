@@ -3,7 +3,11 @@
 public struct DetailTransaction
 {
     public string Sender { get; init; }
+    public string SenderBank { get; init; }
+    public string SenderIBAN { get; init; }
     public string Receiver { get; init; }
+    public string ReceiverBank { get; init; }
+    public string ReceiverIBAN { get; init; }
     public decimal Amount { get; init; }
     public string Description { get; init; }
 

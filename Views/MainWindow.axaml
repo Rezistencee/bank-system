@@ -17,6 +17,10 @@
         PointerPressed="InputElement_OnPointerPressed"
         Title="Main Window">
     
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
     <Window.Background>
         <LinearGradientBrush StartPoint="0, 1">
             <GradientStop Color="#000000" Offset="0"/>
@@ -108,7 +112,8 @@
                                FontSize="18" FontStyle="Italic" FontWeight="Bold" Foreground="Wheat"/>
                        
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxHeight="240">
-                        <ListBox ItemsSource="{Binding Transactions}" Background="Transparent">
+                        <ListBox ItemsSource="{Binding Transactions}" 
+                                 SelectedItem="{Binding CurrentSelectableTransaction}" Background="Transparent">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border Grid.Column="0" BorderBrush="#A479B3" BorderThickness="1" CornerRadius="4" Padding="2">
@@ -132,7 +137,7 @@
                                             </Grid>
 
                                             <Button Grid.Column="1" Background="#A499B3" Content="Receipt" 
-                                                    Foreground="White" Margin="5"/>
+                                                    Foreground="White" Margin="5" Command="{Binding $parent[ListBox].((vm:MainWindowViewModel)DataContext).SaveTransactionInformation}"/>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
