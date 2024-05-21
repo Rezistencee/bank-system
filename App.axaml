@@ -10,7 +10,9 @@
     </Application.DataTemplates>
              
     <Application.Resources>
-        
+        <FontFamily x:Key="Poetsen">avares://BankSystem/Assets/Fonts#Poetsen</FontFamily>
+        <FontFamily x:Key="Lato">avares://BankSystem/Assets/Fonts#Lato</FontFamily>
+        <FontFamily x:Key="Freeman">avares://BankSystem/Assets/Fonts#Freeman</FontFamily>
     </Application.Resources>
              
     <Application.Styles>

@@ -43,11 +43,11 @@
     
     <Grid ColumnDefinitions="*, 4*" ShowGridLines="True">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
-            <Button Classes="sideMenuBtn" Content="Clients" Width="120"
+            <Button Classes="sideMenuBtn" Content="Clients" FontFamily="{StaticResource Lato}" Width="120"
                     Command="{Binding SwitchPageCommand}" CommandParameter="Clients"/>
-            <Button Classes="sideMenuBtn" Content="Accounts" Width="120"
+            <Button Classes="sideMenuBtn" Content="Accounts" Width="120" FontFamily="{StaticResource Lato}"
                     Command="{Binding SwitchPageCommand}" CommandParameter="Accounts"/>
-            <Button Classes="sideMenuBtn" Content="Transactions" Width="120"
+            <Button Classes="sideMenuBtn" Content="Transactions" Width="120" FontFamily="{StaticResource Lato}"
                     Command="{Binding SwitchPageCommand}" CommandParameter="Transactions"/>
         </StackPanel>
         
@@ -56,7 +56,7 @@
         
         <StackPanel VerticalAlignment="Bottom" Margin="0, 10"
                     HorizontalAlignment="Center">
-            <Button Classes="sideMenuBtn" Content="X" Width="120" Click="Button_OnClick"/>
+            <Button Classes="sideMenuBtn" Content="X" FontFamily="{StaticResource Lato}" Width="120" Click="Button_OnClick"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -12,7 +12,7 @@
         ExtendClientAreaTitleBarHeightHint="-1"
         x:Class="BankSystem.Views.LoginWindow"
         x:DataType="vm:LoginWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/bank_logo.ico"
         Title="BankSystem">
     
     <Design.DataContext>
@@ -36,6 +36,7 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="DarkRed"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource Lato}"/>
             <Setter Property="Padding" Value="5"/>
             
             <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -48,6 +49,7 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="DarkGreen"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource Lato}"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
         
@@ -73,7 +75,7 @@
     
     <Grid RowDefinitions="*, 4*, *">
         <TextBlock Text="Pacific Bank" TextAlignment="Left" FontSize="24" FontWeight="Bold"
-                   HorizontalAlignment="Left" Foreground="#DD78A2" VerticalAlignment="Center" Margin="15, 0"/>
+                   HorizontalAlignment="Left" FontFamily="{StaticResource Poetsen}" Foreground="#DD78A2" VerticalAlignment="Center" Margin="15, 0"/>
         
         <Grid Grid.Row="1" Width="350" VerticalAlignment="Center" 
               HorizontalAlignment="Center" RowDefinitions="*, *, *, *">
@@ -88,9 +90,9 @@
             </StackPanel>
             
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <TextBlock Text="Not registered yet? " 
+                <TextBlock Text="Not registered yet? " FontFamily="{StaticResource Poetsen}" 
                            Foreground="White"/>
-                <TextBlock Text="Register" 
+                <TextBlock Text="Register" FontFamily="{StaticResource Poetsen}"
                            FontWeight="ExtraBold" Foreground="#DD78A2"/>
             </StackPanel>
             
