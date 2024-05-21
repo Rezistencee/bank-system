@@ -23,7 +23,7 @@
                             </Grid.Background>
                         
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">
-                                <TextBlock Text="Card balance: " Foreground="Wheat" FontSize="14"/>
+                                <TextBlock Text="Card balance: " FontFamily="{StaticResource Freeman}" Foreground="Wheat" FontSize="14"/>
                                 <TextBlock FontSize="14" Foreground="White">
                                     <Run Text="{TemplateBinding Balance, Converter={StaticResource DecimalToStringConverter}}"/>
                                     <Run Text="UAH"/>
@@ -35,14 +35,14 @@
                             </StackPanel>
                         
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="10, 10, 0,0" Spacing="2">
-                                <TextBlock Text="Card number: " Foreground="Wheat" FontSize="14"/>
+                                <TextBlock Text="Card number: " FontFamily="{StaticResource Freeman}" Foreground="Wheat" FontSize="14"/>
                                 <TextBlock FontSize="14" Foreground="White">
                                     <Run Text="{TemplateBinding Number}"/>
                                 </TextBlock>
                             </StackPanel>
                     
                             <StackPanel Grid.Row="2" Grid.Column="1" Spacing="2">
-                                <TextBlock Text="Expiry Date: " Foreground="Wheat" FontSize="14"/>
+                                <TextBlock Text="Expiry Date: " FontFamily="{StaticResource Freeman}" Foreground="Wheat" FontSize="14"/>
                                 <TextBlock FontSize="14" Foreground="White">
                                     <Run Text="{TemplateBinding ExpirationDate}"/>
                                 </TextBlock>
