@@ -1,0 +1,32 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:BankSystem.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="340"
+        x:Class="BankSystem.Views.TransferWindow"
+        x:DataType="viewModels:TransferWindowViewModel"
+        Width="300"
+        Height="340"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"        
+        WindowStartupLocation="CenterScreen"
+        Title="TransferWindow">
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, *">
+                <TextBlock Text="Transfer Money" FontFamily="{StaticResource Freeman}"
+                           FontSize="20" FontWeight="Bold" Margin="10"/>
+                <TextBlock Text="Card Number:" Grid.Row="1" Margin="10,0"/>
+                <TextBox Text="{Binding CardNumber}" Grid.Row="2" Margin="10"/>
+                <TextBlock Text="Amount:" Grid.Row="3" Margin="10,0"/>
+                <TextBox Text="{Binding Amount}" Grid.Row="4" Margin="10"/>
+                <TextBlock Text="Description:" Grid.Row="5" Margin="10,0"/>
+                <TextBox Text="{Binding Description}" Grid.Row="6" Margin="10"/>
+                <TextBlock Text="{Binding ErrorMessage}" 
+                           Foreground="Red" Grid.Row="7" Margin="10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="8" Margin="10">
+                        <Button Content="Cancel" Margin="5" Click="Button_OnClick"/>
+                        <Button Content="Transfer" Command="{Binding TransferCommand}" Margin="5"/>
+                </StackPanel>
+        </Grid>
+</Window>

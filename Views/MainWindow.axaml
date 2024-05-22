@@ -21,6 +21,10 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     
+    <Window.Resources>
+        <converters:TransactionAmountColorConverter x:Key="TransactionAmountColorConverter"/>
+    </Window.Resources>
+    
     <Window.Background>
         <LinearGradientBrush StartPoint="0, 1">
             <GradientStop Color="#000000" Offset="0"/>
@@ -63,11 +67,11 @@
                     <Button>
                         <Border Width="140" Height="30" BorderThickness="1" CornerRadius="5" 
                                 Background="#A499B3">
-                            <Grid ColumnDefinitions="*, 3*" ShowGridLines="True" Margin="10, 0">
+                            <Grid ColumnDefinitions="*, 3*" Margin="10, 0">
                                 <Polygon Points="5,0 10,10 0,10" Fill="White" VerticalAlignment="Center"
                                          HorizontalAlignment="Center" Margin="5"/>
                         
-                                <TextBlock Grid.Column="1" Text="{Binding CurrentClient.Name}" FontSize="16" FontWeight="Bold" Margin="6, 0"
+                                <TextBlock Grid.Column="1" Text="{Binding CurrentClient.Login}" FontSize="16" FontWeight="Bold" Margin="6, 0"
                                            Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
@@ -83,7 +87,7 @@
             </Grid>
         </Border>
         
-        <Grid Grid.Column="1" RowDefinitions="*, 2*">
+        <Grid Grid.Column="1" RowDefinitions="*, Auto, 2*">
             <StackPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center">
                 <Grid ColumnDefinitions="*, 2*, *">
                     <Button  Margin="5" HorizontalAlignment="Center" IsEnabled="{Binding CanSwitchPrevious}"
@@ -106,13 +110,31 @@
             </StackPanel>
             
             
-            <StackPanel Grid.Row="1">
+            <Grid Grid.Row="1">
+                <StackPanel Margin="10" 
+                            HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Border Width="64" Height="64" CornerRadius="10">
+                        <Button Grid.Column="2" Margin="5, 0" Classes="sideMenuBtn"
+                                Command="{Binding ExecuteTransaction}">
+                            <Image Source="/Assets/transfer.png"/>
+                        </Button>
+                    </Border>
+                
+                    <Border Width="64" Height="64" CornerRadius="10">
+                        <Button Grid.Column="2" Margin="5, 0" Classes="sideMenuBtn">
+                            <Image Source="/Assets/transfer.png"/>
+                        </Button>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            
+            <StackPanel Grid.Row="2">
                 <DockPanel Margin="10">
                     <TextBlock Margin="0 5" DockPanel.Dock="Top" Text="Transactions: " 
                                FontSize="18" FontStyle="Italic" FontWeight="Bold" Foreground="Wheat"/>
                        
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxHeight="240">
-                        <ListBox ItemsSource="{Binding Transactions}" 
+                        <ListBox ItemsSource="{Binding Transactions}" MaxWidth="540"
                                  SelectedItem="{Binding CurrentSelectableTransaction}" Background="Transparent">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -123,7 +145,7 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             
-                                            <Grid ColumnDefinitions="*, 2*" RowDefinitions="*, *">
+                                            <Grid ColumnDefinitions="*, 2*, *" RowDefinitions="*, *">
                                                 <TextBlock VerticalAlignment="Center" Padding="2"
                                                            Text="Processed" Foreground="White"/>
                                                 
@@ -134,9 +156,20 @@
                                                 
                                                 <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="2"
                                                            Text="{Binding Description}" Foreground="White"/>
+                                                
+                                                <TextBlock Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center"
+                                                           Text="{Binding Amount, StringFormat={}{0:F2}}" FontStyle="Italic"
+                                                           FontSize="16">
+                                                    <TextBlock.Foreground>
+                                                        <MultiBinding Converter="{StaticResource TransactionAmountColorConverter}">
+                                                            <Binding Path="."/>
+                                                            <Binding Path="$parent[ListBox].((vm:MainWindowViewModel)DataContext).CurrentAccount.ID" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Foreground>
+                                                </TextBlock>
                                             </Grid>
 
-                                            <Button Grid.Column="1" Background="#A499B3" Content="Receipt" 
+                                            <Button Grid.Column="2" Background="#A499B3" Content="Receipt" 
                                                     Foreground="White" Margin="5" Command="{Binding $parent[ListBox].((vm:MainWindowViewModel)DataContext).SaveTransactionInformation}"/>
                                         </Grid>
                                     </Border>
