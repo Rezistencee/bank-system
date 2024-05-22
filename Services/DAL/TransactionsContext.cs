@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using BankSystem.Models;
 using BankSystem.Models.Structures;
 
@@ -74,6 +76,7 @@ public class TransactionsContext : DatabaseConnection
                     receiverClient.name AS Receiver, 
                     t.amount,
                     t.Description AS Description,
+                    senderAccount.ID AS SenderAccountID,
                     senderAccount.IBAN AS SenderIBAN,
                     receiverAccount.IBAN AS ReceiverIBAN,
                     senderBank.name AS SenderBank,
@@ -100,6 +103,7 @@ public class TransactionsContext : DatabaseConnection
                     incomeTransactions.Add(new DetailTransaction
                     {
                         Receiver = reader["Receiver"].ToString(),
+                        SenderAccountID = Convert.ToInt32(reader["SenderAccountID"]),
                         ReceiverIBAN = reader["ReceiverIBAN"].ToString(),
                         ReceiverBank = reader["ReceiverBank"].ToString(),
                         Sender = reader["Sender"].ToString(),
@@ -113,5 +117,26 @@ public class TransactionsContext : DatabaseConnection
         }
 
         return incomeTransactions;
+    }
+    
+    public void TransferMoney(int senderAccountId, int receiverAccountId, decimal amountToTransfer, int transactionTypeId, int paymentCode, string description)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            using (SqlCommand command = new SqlCommand("TransferMoney", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@senderAccountId", senderAccountId);
+                command.Parameters.AddWithValue("@receiverAccountId", receiverAccountId);
+                command.Parameters.AddWithValue("@amountToTransfer", amountToTransfer);
+                command.Parameters.AddWithValue("@transactionTypeId", transactionTypeId);
+                command.Parameters.AddWithValue("@paymentCode", paymentCode);
+                command.Parameters.AddWithValue("@description", description);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

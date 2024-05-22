@@ -2,6 +2,7 @@
 
 public struct DetailTransaction
 {
+    public int SenderAccountID { get; init; }
     public string Sender { get; init; }
     public string SenderBank { get; init; }
     public string SenderIBAN { get; init; }

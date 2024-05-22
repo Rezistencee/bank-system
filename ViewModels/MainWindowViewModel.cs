@@ -91,6 +91,7 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand SwitchAccountToNextCommand { get; }
     public ICommand SwitchAccountToPreviousCommand { get; }
     public ICommand SaveTransactionInformation { get; }
+    public ICommand ExecuteTransaction { get; }
     
     public MainWindowViewModel()
     {
@@ -103,6 +104,7 @@ public class MainWindowViewModel : ViewModelBase
         SwitchAccountToPreviousCommand = ReactiveCommand.Create(SwitchAccountToPrevious);
         SwitchAccountToNextCommand = ReactiveCommand.Create(SwitchAccountToNext);
         SaveTransactionInformation = ReactiveCommand.Create(SaveTransactionToFile);
+        ExecuteTransaction = ReactiveCommand.Create(ExecuteTransactionWindow);
         
         _currentSession = SingletonSession.Instance.CurrentSession;
         _currentAccountIndex = 0;
@@ -165,5 +167,11 @@ public class MainWindowViewModel : ViewModelBase
             Transactions = new ObservableCollection<DetailTransaction>(
                 _transactionsContext.GetLastTenTransactionAccountList(CurrentAccount.ID));
         }
+    }
+
+    private void ExecuteTransactionWindow()
+    {
+        Window transactionWindow = new TransferWindow() { DataContext = new TransferWindowViewModel(CurrentAccount) };
+        transactionWindow.Show();
     }
 }

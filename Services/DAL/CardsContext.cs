@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using BankSystem.Models;
 
 namespace BankSystem.Services.DAL;
@@ -89,5 +90,11 @@ public class CardsContext : DatabaseConnection
         }
 
         return result;
+    }
+
+    public int? GetAccountID(string cardNumber)
+    {
+        var card = Cards.FirstOrDefault(c => c.Number == cardNumber);
+        return card?.AccountID;
     }
 }
